@@ -34,8 +34,3 @@ kubectl -n monitoring port-forward svc/monitoring-kube-prometheus-alertmanager 9
 - Grafana: http://127.0.0.1:3000 (admin / admin123)
 - Prometheus: http://127.0.0.1:9090
 - Alertmanager: http://127.0.0.1:9093
-
-## Notas
-- El ServiceMonitor usa `labels.release=monitoring` para alinearse con kube-prometheus-stack.
-- Ajusta `image:` en el Deployment si subes la imagen a un registry externo.
-- Reemplaza NodePort por Ingress si lo deseas.
