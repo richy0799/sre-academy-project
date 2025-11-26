@@ -1,0 +1,25 @@
+
+grafana:
+  adminPassword: admin123
+  service:
+    type: NodePort
+  ingress:
+    enabled: false
+  defaultDashboardsTimezone: browser
+
+prometheus:
+  service:
+    type: NodePort
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+
+alertmanager:
+  service:
+    type: NodePort
+  alertmanagerSpec:
+    replicas: 1
+
+alertmanagerConfig:
+  enabled: true

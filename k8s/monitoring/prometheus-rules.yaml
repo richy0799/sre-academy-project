@@ -1,0 +1,38 @@
+
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: demo-custom-rules
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  groups:
+  - name: demo-app.rules
+    rules:
+    - alert: DemoAppHighErrorRate
+      expr: rate(demo_error_total[5m]) > 0.1
+      for: 2m
+      labels:
+        severity: warning
+      annotations:
+        summary: "La app reporta tasa alta de errores"
+        description: "Se detecta rate(demo_error_total) > 0.1 en 5m."
+
+    - alert: DemoAppHighLatency
+      expr: histogram_quantile(0.95, sum(rate(demo_request_latency_seconds_bucket[5m])) by (le)) > 1
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "P95 de latencia > 1s"
+        description: "La latencia P95 supera 1s sostenidamente."
+
+    - alert: AlwaysFiringDemo
+      expr: vector(1)
+      for: 1m
+      labels:
+        severity: info
+      annotations:
+        summary: "Alerta de prueba (siempre firing)"
+        description: "Usada para validar el pipeline Alertmanager."

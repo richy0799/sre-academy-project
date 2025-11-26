@@ -1,0 +1,21 @@
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-metrics-app
+  namespace: demo
+  labels:
+    app: demo-metrics-app
+spec:
+  selector:
+    app: demo-metrics-app
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+  type: ClusterIP
